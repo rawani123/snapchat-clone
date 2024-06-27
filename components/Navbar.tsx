@@ -14,7 +14,7 @@ const Navbar = () => {
         <Input placeholder="Search" type="text" className="rounded-full" />
       </div>
       <div>
-        <Button variant={'ghost'}>Stories</Button>
+        <Button variant={'ghost'} >Stories</Button>
         <Button variant={'ghost'}>Spotlight </Button>
         <Button variant={'ghost'}>Chat</Button>
         <Button variant={'ghost'}>Lenses</Button>
