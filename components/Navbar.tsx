@@ -21,7 +21,7 @@ const Navbar = () => {
       </div>
       <div className="flex items-center gap-5">
         <Button size={'icon'}variant={'secondary'} className="rounded-full bg-white text-black"><TbGridDots/></Button>
-        <Button className="rounded-full">Snapchat Ads</Button>
+        <Button className="rounded-full ">Snapchat Ads</Button>
         <Button className="rounded-full" >Download</Button>
         <Button size={'icon'} className="rounded-full" ><IoMdLogOut size={'18px'}/></Button>
       </div>
