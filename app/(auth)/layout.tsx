@@ -11,7 +11,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </div>
       </div>
-      
     </div>
   );
 };
