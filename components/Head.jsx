@@ -4,8 +4,12 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { FaLaptop } from "react-icons/fa";
 import Link from "next/link";
+import { auth } from "@/auth";
+import { AiOutlineMessage } from "react-icons/ai";
 
-const Header = () => {
+const Header = async () => {
+  const authUser = await auth();
+  // console.log(authUser);
   return (
     <div className="flex justify-center items-center max-w-6xl mx-auto">
       <div>
@@ -16,11 +20,19 @@ const Header = () => {
         <div className="my-4 text-xl ">
           Chat, Snap, and video call your friend from wherever you are.
         </div>
-        <Link href={"/login"}>
-          <Button className=" gap-2 rounded-full">
-            <FaLaptop /> Login to Chat
-          </Button>
-        </Link>
+        {authUser ? (
+          <Link href={"/login"}>
+            <Button className=" gap-2 rounded-full">
+              <AiOutlineMessage size={'18px'}/> Start Chat
+            </Button>
+          </Link>
+        ) : (
+          <Link href={"/login"}>
+            <Button className=" gap-2 rounded-full">
+              <FaLaptop /> Login to Chat
+            </Button>
+          </Link>
+        )}
       </div>
       <div>
         <Image src={MyAi} height={650} width={650} alt="snapchat" />
