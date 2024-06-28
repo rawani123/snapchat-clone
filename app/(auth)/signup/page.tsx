@@ -1,11 +1,16 @@
 import React from 'react'
 import SignupPage from '@/components/Signup'
+import { signIn } from '@/auth'
 
 const Signup = () => {
+  const signUpHandler = async() => {
+    'use server'
+    await signIn('github')
+  }
   return (
-    <div>
+    <form action={signUpHandler}>
       <SignupPage/>
-    </div>
+    </form>
   )
 }
 

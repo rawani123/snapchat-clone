@@ -3,6 +3,7 @@ import MyAi from "@/public/myai-asset.png";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { FaLaptop } from "react-icons/fa";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -15,9 +16,11 @@ const Header = () => {
         <div className="my-4 text-xl ">
           Chat, Snap, and video call your friend from wherever you are.
         </div>
-        <Button className=" gap-2 rounded-full">
-          <FaLaptop /> Login to Chat
-        </Button>
+        <Link href={"/login"}>
+          <Button className=" gap-2 rounded-full">
+            <FaLaptop /> Login to Chat
+          </Button>
+        </Link>
       </div>
       <div>
         <Image src={MyAi} height={650} width={650} alt="snapchat" />

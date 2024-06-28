@@ -1,13 +1,18 @@
 import React from 'react'
 import LoginPage from '@/components/Login'
+import { signIn } from '@/auth'
 
 
 
 const Login = () => {
+  const loginHandler = async() => {
+    'use server'
+    await signIn('github')
+  }
   return (
-    <div>
+    <form action={loginHandler}>
       <LoginPage/>
-    </div>
+    </form>
   )
 }
 
