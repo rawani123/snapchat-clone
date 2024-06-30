@@ -1,15 +1,16 @@
+import ChatPage from '@/components/ChatPage'
 import React from 'react'
 
 interface Params{
     id:string
 }
 
-const ChatPage = ({params}:{params:Params}) => {
+const chattingPage = ({params}:{params:Params}) => {
   return (
-    <div>
-      
+    <div className='w-[72%]'>
+    <ChatPage/>
     </div>
   )
 }
 
-export default ChatPage
+export default chattingPage
