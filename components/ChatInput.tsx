@@ -1,6 +1,7 @@
 import React from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { Button } from "./ui/button";
+import { PopoverDemo } from "./EmojiPopover";
 
 const ChatInput = () => {
   return (
@@ -19,7 +20,7 @@ const ChatInput = () => {
         </div>
       </form>
       <div>
-        Emoji
+        <PopoverDemo />
       </div>
     </div>
   );
