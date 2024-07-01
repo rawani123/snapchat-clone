@@ -4,14 +4,27 @@ import { Chat } from "@/models/chat.model";
 import Message from "@/models/message.model";
 import { redirect } from "next/navigation";
 
-export const sendSnap =async(image:string,receiverId:string,messageType:'image'|'text')=>{
+import {v2 as cloudinary} from 'cloudinary'
+
+cloudinary.config({
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+export const sendSnap =async(content:string,receiverId:string,messageType:'image'|'text')=>{
     try {
         const authUser=await auth()
         const senderId=authUser?.user?._id;
+
+        let uploadImage;
+        if(messageType==='image'){
+            uploadImage=await cloudinary.uploader.upload(content)
+        }
         const newMessage= await Message.create({
             senderId,
             receiverId,
-            content:"img url",
+            content:uploadImage?.secure_url || content,
             messageType
         })
 
