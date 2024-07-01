@@ -1,10 +1,11 @@
 'use server'
 import { auth, signOut } from "@/auth";
 import { Chat } from "@/models/chat.model";
-import Message from "@/models/message.model";
+import Message, { MessageDocument } from "@/models/message.model";
 import { redirect } from "next/navigation";
 
 import {v2 as cloudinary} from 'cloudinary'
+import connectDB from "./db";
 
 cloudinary.config({
     cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -14,6 +15,7 @@ cloudinary.config({
 
 export const sendSnap =async(content:string,receiverId:string,messageType:'image'|'text')=>{
     try {
+        await connectDB();
         const authUser=await auth()
         const senderId=authUser?.user?._id;
 
@@ -35,7 +37,7 @@ export const sendSnap =async(content:string,receiverId:string,messageType:'image
                 messages:[newMessage._id]
             })
         }else{
-            chat.messages.push(newMessage._id)
+            chat.messages.push(newMessage?._id)
             await chat.save()
         }
 
@@ -43,6 +45,27 @@ export const sendSnap =async(content:string,receiverId:string,messageType:'image
 
     } catch (error) {
         console.log(error);
+        throw error;
+    }
+}
+
+export const deleteChat=async(userId:string)=>{
+    try {
+        await connectDB();
+        const authUser=await auth()
+        if(!authUser) return;
+        const senderId=authUser?.user?._id;
+
+        const chat = await Chat.findOne({participants:{$all:[senderId,userId]}})
+        console.log(chat);
+        if(!chat) return;
+
+        const messageInString = chat.messages.map((messageId)=>messageId.toString());
+        await Message.deleteMany({_id:{$in:messageInString}})
+        await Chat.deleteOne({_id:chat._id})
+
+    } catch (error) {
+        console.log(error)
         throw error;
     }
 }
