@@ -3,11 +3,11 @@ import ChatTopBar from './ChatTopBar'
 import ChatBody from './ChatBody'
 import ChatInput from './ChatInput'
 
-const ChatPage = ({userProfile}:{userProfile:any}) => {
+const ChatPage = ({userProfile,messages,authUser}:{userProfile:any,messages:any,authUser:any}) => {
   return (
     <div className='m-2 flex flex-col h-[96%]'>
       <ChatTopBar userProfile={userProfile}/>
-      <ChatBody/>
+      <ChatBody messages={messages} authUser={authUser}/>
       <ChatInput/>
     </div>
   )

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import {v2 as cloudinary} from 'cloudinary'
 import connectDB from "./db";
+import { revalidatePath } from "next/cache";
 
 cloudinary.config({
     cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -40,6 +41,7 @@ export const sendSnap =async(content:string,receiverId:string,messageType:'image
             chat.messages.push(newMessage?._id)
             await chat.save()
         }
+        revalidatePath(`/chat/${receiverId}`)
 
         return JSON.parse(JSON.stringify(newMessage))
 
