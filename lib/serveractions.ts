@@ -38,7 +38,7 @@ export const sendSnap =async(content:string,receiverId:any,messageType:'image'|'
                 messages:[newMessage._id]
             })
         }else{
-            chat.messages.push(newMessage?._id)
+            chat.messages.push(newMessage._id as any)
             await chat.save()
         }
         revalidatePath(`/chat/${receiverId}`)
