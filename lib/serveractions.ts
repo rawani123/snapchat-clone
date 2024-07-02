@@ -14,7 +14,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-export const sendSnap =async(content:string,receiverId:string,messageType:'image'|'text')=>{
+export const sendSnap =async(content:string,receiverId:any,messageType:'image'|'text')=>{
     try {
         await connectDB();
         const authUser=await auth()
@@ -65,11 +65,13 @@ export const deleteChat=async(userId:string)=>{
         const messageInString = chat.messages.map((messageId)=>messageId.toString());
         await Message.deleteMany({_id:{$in:messageInString}})
         await Chat.deleteOne({_id:chat._id})
+        revalidatePath(`/chat/${userId}`)
 
     } catch (error) {
         console.log(error)
         throw error;
     }
+    redirect('/chat')
 }
 
 export const logoutHandler = async () => {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const ChatBody = ({ messages, authUser }: { messages: any; authUser: any }) => {
@@ -14,7 +15,7 @@ const ChatBody = ({ messages, authUser }: { messages: any; authUser: any }) => {
 
         return (
           <>
-            <div className="w-full">
+            <div className="w-full" key={message._id}>
               {!isPreviousMessageFromSameUser && (
                 <p
                   className={`font-bold mt-2 text-xs ${
@@ -30,7 +31,13 @@ const ChatBody = ({ messages, authUser }: { messages: any; authUser: any }) => {
                 }`}
               >
                 <div className="flex items-center w-1/2 p-2 rounded-sm">
-                  <p>{message.content}</p>
+                  {
+                    messageType ? (
+                      <Image src={message.content} width={100} height={100} alt={'img'} className="h-aut w-auto object-cover cursor-pointer"/>
+                    ):(
+                      <p className="text-sm">{message.content}</p>
+                    )
+                  }
                 </div>
               </div>
             </div>

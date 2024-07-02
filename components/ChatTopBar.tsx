@@ -1,36 +1,48 @@
-import { ArrowBigRight } from 'lucide-react'
-import Link from 'next/link'
-import React from 'react'
-import { Avatar, AvatarImage } from './ui/avatar'
-import { Button } from './ui/button'
+"use client";
 
-const ChatTopBar = ({userProfile}:{userProfile:any}) => {
+import { ArrowBigLeft } from "lucide-react";
+import Link from "next/link";
+import React from "react";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { deleteChat } from "@/lib/serveractions";
+import { useParams } from "next/navigation";
+import { useFormState, useFormStatus } from "react-dom";
+
+const ChatTopBar = ({ userProfile }: { userProfile: any }) => {
+  const { id } = useParams<{ id: string }>();
+  const deleteChatHandler = deleteChat.bind(null, id);
   return (
-    <div className='flex items-center justify-between'>
-      <div className='flex items-center gap-4'>
-        <Link href='/chat'>
-            <ArrowBigRight/>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <Link href="/chat">
+          <ArrowBigLeft />
         </Link>
-        <div className='flex items-center gap-1'>
-            <Avatar>
-                <AvatarImage src={userProfile.profilePhoto} alt="user" />
-            </Avatar>
-            <h1 className='font-bold'>{userProfile.fullname}</h1>
-
+        <div className="flex items-center gap-1">
+          <Avatar>
+            <AvatarImage src={userProfile.profilePhoto} alt="user" />
+          </Avatar>
+          <h1 className="font-bold">{userProfile.fullname}</h1>
         </div>
       </div>
-      <form >
-        <SubmitButton/>
+      <form action={deleteChatHandler}>
+        <SubmitButton />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ChatTopBar
+export default ChatTopBar;
 
-
-const SubmitButton =()=>{
-    return(
-        <Button>submit</Button>
-    )
-}
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+  return <Button variant={"destructive"}>{
+    !pending ? (
+      "clear chat"):(
+        <Button variant={"destructive"}>
+          Please Wait
+        </Button>
+      )
+    
+  }</Button>;
+};
