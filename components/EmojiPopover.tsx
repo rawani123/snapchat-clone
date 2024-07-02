@@ -9,6 +9,7 @@ import {
 import { EmojiArray } from "@/lib/emoji"
 import { sendSnap } from "@/lib/serveractions"
 import { readFileAsDataURL } from "@/lib/utils"
+import { Loader2 } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useState } from "react"
@@ -38,7 +39,9 @@ export function PopoverDemo() {
     <Popover>
       <PopoverTrigger asChild>
         <Button size={'icon'} className="rounded-full" variant="outline">
-            <MdEmojiEmotions size={'24px'} />
+           {
+            loading ? (<Loader2 className="mr-2 h-4 w-4 animate-spin" />): <MdEmojiEmotions size={'24px'} />
+           }
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
