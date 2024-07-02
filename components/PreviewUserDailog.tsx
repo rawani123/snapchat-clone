@@ -71,10 +71,10 @@ const UserDialog = ({
           />
         </DialogHeader>
         <div className="grid gap-1 py-4">
-          {users.map((user: UserDocument) => {
+          {users.map((user: UserDocument,index) => {
             return (
               <div
-              key={user?._id}
+              key={index}
                 onClick={() => selectedUserHandler(user)}
                 className={`flex ${
                   selectedUser?._id === user._id ? "bg-gray-200" : null
