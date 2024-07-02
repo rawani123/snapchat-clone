@@ -21,7 +21,7 @@ const Header = async () => {
           Chat, Snap, and video call your friend from wherever you are.
         </div>
         {authUser ? (
-          <Link href={"/login"}>
+          <Link href={"/chat"}>
             <Button className=" gap-2 rounded-full">
               <AiOutlineMessage size={'18px'}/> Start Chat
             </Button>

@@ -1,6 +1,6 @@
 import { Chat } from "@/models/chat.model"
 import connectDB from "./db"
-import { model } from "mongoose";
+
 
 export const getMessage = async(loggedInUserId:string,otherUserId:string)=>{
     try {

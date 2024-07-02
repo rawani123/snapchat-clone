@@ -2,8 +2,8 @@
 import React,{useState} from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { Button } from "./ui/button";
-import { PopoverDemo } from "./EmojiPopover";
-import { sendSnap } from "@/lib/serveractions";
+import { EmojiPopover } from "./EmojiPopover";
+import { sendSnapMessage } from "@/lib/serveractions";
 import { useParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
@@ -17,7 +17,7 @@ const ChatInput = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await sendSnap(input,receiverId,'text');
+      await sendSnapMessage(input,receiverId,'text');
       setInput('');
     } catch (error) {
       console.log(error)
@@ -53,7 +53,7 @@ const ChatInput = () => {
         </div>
       </form>
       <div>
-        <PopoverDemo />
+        <EmojiPopover />
       </div>
     </div>
   );

@@ -1,25 +1,23 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const readFileAsDataURL = (file: File | Blob): Promise<string> => {
-  return new Promise((resolve)=>{
+  return new Promise((resolve) => {
     const reader = new FileReader();
-    reader.onloadend =()=>{
-      if(typeof reader.result === 'string'){
-        resolve(reader.result)
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") resolve(reader.result);
     };
-  }
     reader.readAsDataURL(file);
-  })
-}
+  });
+};
 
-export const formatDate = (Inputdate: Date):string => {
-  const date=new Date(Inputdate);
-  const options:Intl.DateTimeFormatOptions={ month:'short',day:'numeric'};
-  const formattedDate:string= date.toLocaleDateString('en-US',options);
+export const formatDate = (inputDate: Date): string => {
+  const date = new Date(inputDate);
+  const options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" };
+  const formattedDate: string = date.toLocaleDateString("en-US", options);
   return formattedDate;
-}
+};

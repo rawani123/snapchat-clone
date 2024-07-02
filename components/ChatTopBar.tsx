@@ -5,13 +5,13 @@ import Link from "next/link";
 import React from "react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { deleteChat } from "@/lib/serveractions";
+import { deleteChatMessages } from "@/lib/serveractions";
 import { useParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
 const ChatTopBar = ({ userProfile }: { userProfile: any }) => {
   const { id } = useParams<{ id: string }>();
-  const deleteChatHandler = deleteChat.bind(null, id);
+  const deleteChatHandler = deleteChatMessages.bind(null, id);
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">

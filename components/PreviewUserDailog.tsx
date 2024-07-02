@@ -13,7 +13,7 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { VscSend } from "react-icons/vsc";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { sendSnap } from "@/lib/serveractions";
+import { sendSnapMessage } from "@/lib/serveractions";
 
 const UserDialog = ({
   selectedFile,
@@ -36,7 +36,7 @@ const UserDialog = ({
   const sendMessageHandler = async () => {
     setSendMessageLoading(true);
     try {
-      await sendSnap(selectedFile, selectedUser?._id, "image");
+      await sendSnapMessage(selectedFile, selectedUser?._id as any, "image");
       router.push(`/chat/${selectedUser?._id}`);
     } catch (error) {
       console.log(error);
