@@ -38,7 +38,7 @@ const ChatCamera = () => {
                         hidden
                     />
                 </div>
-                <p className='w-2/3 text-center text-white mt-4 font-semibold'>Click the Camera to send your Code.</p>
+                <p className='w-2/3 text-center text-white mt-4 font-semibold'>Lets send your first snap.</p>
             </div>
             {
                 flag === false ? (

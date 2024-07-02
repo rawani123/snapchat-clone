@@ -43,7 +43,7 @@ export const getProfileUser = async (userId: string) => {
     const user: UserDocument | null = await User.findOne({ _id: userId });
     if (!user) return "User not found";
 
-    return user;
+    return JSON.parse(JSON.stringify(user));
   } catch (error) {
     console.log(error);
     throw error;

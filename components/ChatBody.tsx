@@ -1,7 +1,18 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { Dialog, DialogContent } from "./ui/dialog";
+
+interface PREVIEWIMAGE {
+  open: boolean;
+  imgURl: string;
+}
 
 const ChatBody = ({ messages, authUser }: { messages: any; authUser: any }) => {
+  const [previewImage, setPreviewImage] = React.useState<PREVIEWIMAGE>({
+    open: false,
+    imgURl: "",
+  });
   return (
     <div className="flex-1 my-3 border-2 border-gray-200 overflow-y-auto p-2 rounded-lg ">
       {messages.map((message: any, index: number) => {
@@ -31,19 +42,31 @@ const ChatBody = ({ messages, authUser }: { messages: any; authUser: any }) => {
                 }`}
               >
                 <div className="flex items-center w-1/2 p-2 rounded-sm">
-                  {
-                    messageType ? (
-                      <Image src={message.content} width={100} height={100} alt={'img'} className="h-aut w-auto object-cover cursor-pointer"/>
-                    ):(
-                      <p className="text-sm">{message.content}</p>
-                    )
-                  }
+                  {messageType ? (
+                    <Image
+                      src={message.content}
+                      width={100}
+                      height={100}
+                      alt={"img"}
+                      className="h-aut w-auto object-cover cursor-pointer"
+                      onClick={() => setPreviewImage({ open: true, imgURl: message.content })}
+                    />
+                  ) : (
+                    <p className="text-sm">{message.content}</p>
+                  )}
                 </div>
               </div>
             </div>
           </>
         );
       })}
+      <Dialog open={previewImage.open} onOpenChange={()=> setPreviewImage({open:false,imgURl:''})}>
+        <DialogContent className="max-w-2xl h-96">
+          {
+            previewImage.imgURl && <Image src={previewImage.imgURl} fill={true} alt="img" className="border-2 border-white  rounded-lg" />
+          }
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
